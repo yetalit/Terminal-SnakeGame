@@ -89,6 +89,7 @@ fn main() raises:
             var collision = rows.unsafe_uint8_ptr()[snake[0].y * (width + 3) + snake[0].x]
             if collision == 79:
                 snake.append(BodyPart(lastPos[0], lastPos[1], snake[len(snake) - 1].cDir))
+                rows.unsafe_uint8_ptr()[lastPos[1] * (width + 3) + lastPos[0]] = 35
                 score += 10
                 var verified = False
                 while not verified:
@@ -102,16 +103,14 @@ fn main() raises:
                 rows.unsafe_uint8_ptr()[randY * (width + 3) + randX] = 79
             elif collision == 45 or collision == 124 or collision == 35:
                 # Game over
-                for body in snake:
-                    rows.unsafe_uint8_ptr()[body[].y * (width + 3) + body[].x] = 35
+                rows.unsafe_uint8_ptr()[snake[0].y * (width + 3) + snake[0].x] = 35
                 for _ in range(key_count):
                     print(chr(8), end="")
                 print(clear, end="")
                 print('score: ' + str(score) + '\n' + rows)
                 exit()
             # Render the frame
-            for body in snake:
-                rows.unsafe_uint8_ptr()[body[].y * (width + 3) + body[].x] = 35
+            rows.unsafe_uint8_ptr()[snake[0].y * (width + 3) + snake[0].x] = 35
             for _ in range(key_count):
                 print(chr(8), end="")
                 key_count = 0
