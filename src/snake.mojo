@@ -106,7 +106,6 @@ fn main() raises:
                     rows.unsafe_uint8_ptr()[body[].y * (width + 3) + body[].x] = 35
                 for _ in range(key_count):
                     print(chr(8), end="")
-                    key_count = 0
                 print(clear, end="")
                 print('score: ' + str(score) + '\n' + rows)
                 exit()
