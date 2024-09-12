@@ -18,10 +18,10 @@ struct BodyPart():
 
 fn main() raises:
     var key = Key()
-    var clear = chr(27) + "[2J"
+    alias clear = chr(27) + "[2J"
 
-    var height = 12
-    var width = 50
+    alias height = 12
+    alias width = 50
 
     var rows: String = '--'
     for _ in range(width):
