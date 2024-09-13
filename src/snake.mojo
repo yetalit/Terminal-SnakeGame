@@ -1,9 +1,11 @@
 from lib.Key import Key
+from collections import Dict
+import random
 import time
 from sys import exit
 
 @value
-struct BodyPart():
+struct BodyPart:
     var x: Int
     var y: Int
     var cDir: Int
@@ -45,7 +47,7 @@ fn main() raises:
     random.seed()
     var randX = int(random.random_ui64(3, width))
     var randY = int(random.random_ui64(1, height))
-    rows.unsafe_uint8_ptr()[randY * (width + 3) + randX] = 79
+    rows.unsafe_ptr()[randY * (width + 3) + randX] = 79
 
     var score = 0
 
@@ -76,7 +78,7 @@ fn main() raises:
                     snake[i].cDir = snake[i - 1].pDir
                 if i == len(snake) - 1:
                     lastPos = (snake[i].x, snake[i].y)
-                    rows.unsafe_uint8_ptr()[snake[i].y * (width + 3) + snake[i].x] = 32
+                    rows.unsafe_ptr()[snake[i].y * (width + 3) + snake[i].x] = 32
                 if snake[i].cDir == dirs['w']:
                     snake[i].y -= 1
                 elif snake[i].cDir == dirs['a']:
@@ -86,10 +88,10 @@ fn main() raises:
                 elif snake[i].cDir == dirs['d']:
                     snake[i].x += 1
             # Collision check
-            var collision = rows.unsafe_uint8_ptr()[snake[0].y * (width + 3) + snake[0].x]
+            var collision = rows.unsafe_ptr()[snake[0].y * (width + 3) + snake[0].x]
             if collision == 79:
                 snake.append(BodyPart(lastPos[0], lastPos[1], snake[len(snake) - 1].cDir))
-                rows.unsafe_uint8_ptr()[lastPos[1] * (width + 3) + lastPos[0]] = 35
+                rows.unsafe_ptr()[lastPos[1] * (width + 3) + lastPos[0]] = 35
                 score += 10
                 var verified = False
                 while not verified:
@@ -100,17 +102,17 @@ fn main() raises:
                         if body[].x == randX and body[].y == randY:
                             verified = False
                             break
-                rows.unsafe_uint8_ptr()[randY * (width + 3) + randX] = 79
+                rows.unsafe_ptr()[randY * (width + 3) + randX] = 79
             elif collision == 45 or collision == 124 or collision == 35:
                 # Game over
-                rows.unsafe_uint8_ptr()[snake[0].y * (width + 3) + snake[0].x] = 35
+                rows.unsafe_ptr()[snake[0].y * (width + 3) + snake[0].x] = 35
                 for _ in range(key_count):
                     print(chr(8), end="")
                 print(clear, end="")
                 print('score: ' + str(score) + '\n' + rows)
                 exit()
             # Render the frame
-            rows.unsafe_uint8_ptr()[snake[0].y * (width + 3) + snake[0].x] = 35
+            rows.unsafe_ptr()[snake[0].y * (width + 3) + snake[0].x] = 35
             for _ in range(key_count):
                 print(chr(8), end="")
                 key_count = 0
