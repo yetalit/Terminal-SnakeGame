@@ -51,7 +51,7 @@ fn main() raises:
 
     var score = 0
 
-    var t = time.now()
+    var t = time.perf_counter_ns()
     var key_count = 0
     while True:
         var c = key.listen()
@@ -62,8 +62,8 @@ fn main() raises:
             elif c == 122:
                 print('\nexited')
                 exit()
-        if time.now() - t > 260000000:
-            t = time.now()
+        if time.perf_counter_ns() - t > 260000000:
+            t = time.perf_counter_ns()
             # Update game
             var lastPos = (0, 0)
             for i in range(len(snake)):
