@@ -1,3 +1,9 @@
+/*
+ * Some sources:
+ * Article: https://web.archive.org/web/20170407122137/http://cc.byexamples.com/2007/04/08/non-blocking-user-input-in-loop-without-ncurses/
+ * Rafael Zurita's repo : https://github.com/zrafa/onscreenkeyboard/blob/master/key.c
+ */
+
 #include<stdio.h>
 #include<unistd.h>
 #include<termios.h>
