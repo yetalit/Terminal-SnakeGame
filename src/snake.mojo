@@ -11,7 +11,7 @@ struct BodyPart:
     var cDir: Int
     var pDir: Int
 
-    fn __init__(inout self, x: Int, y: Int, dir: Int):
+    fn __init__(out self, x: Int, y: Int, dir: Int):
         self.x = x
         self.y = y
         self.cDir = dir
@@ -42,11 +42,11 @@ fn main() raises:
     dirs['a'] = 97
     dirs['s'] = 115
     dirs['d'] = 100
-    var snake = List[BodyPart](BodyPart(1, int(height / 2), dirs['d']))
+    var snake = List[BodyPart](BodyPart(1, Int(height / 2), dirs['d']))
     var nextMove = dirs['d']
     random.seed()
-    var randX = int(random.random_ui64(3, width))
-    var randY = int(random.random_ui64(1, height))
+    var randX = Int(random.random_ui64(3, width))
+    var randY = Int(random.random_ui64(1, height))
     rows.unsafe_ptr()[randY * (width + 3) + randX] = 79
 
     var score = 0
@@ -96,8 +96,8 @@ fn main() raises:
                 var verified = False
                 while not verified:
                     verified = True
-                    randX = int(random.random_ui64(1, width))
-                    randY = int(random.random_ui64(1, height))
+                    randX = Int(random.random_ui64(1, width))
+                    randY = Int(random.random_ui64(1, height))
                     for body in snake:
                         if body[].x == randX and body[].y == randY:
                             verified = False
@@ -109,7 +109,7 @@ fn main() raises:
                 for _ in range(key_count):
                     print(chr(8), end="")
                 print(clear, end="")
-                print('score: ' + str(score) + '\n' + rows)
+                print('score: ' + String(score) + '\n' + rows)
                 exit()
             # Render the frame
             rows.unsafe_ptr()[snake[0].y * (width + 3) + snake[0].x] = 35
@@ -117,4 +117,4 @@ fn main() raises:
                 print(chr(8), end="")
                 key_count = 0
             print(clear, end="")
-            print('score: ' + str(score) + '\n' + rows)
+            print('score: ' + String(score) + '\n' + rows)

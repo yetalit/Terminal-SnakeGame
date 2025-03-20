@@ -18,6 +18,7 @@ C is used to detect user's keystrokes. The rest is in mojo.
 
 # Notes
 
-You can compile the `key.c` code to library file using:
+Commands to compile the `key.c` code to library file:
 
-`gcc -shared -o libkey.so -fPIC key.c`
+Linux: `gcc -shared -o libkey.so -fPIC key.c`
+MacOS: `gcc -dynamiclib -o libkey.dylib key.c`
